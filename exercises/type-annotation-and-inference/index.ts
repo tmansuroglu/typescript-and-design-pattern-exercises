@@ -1,4 +1,4 @@
-// type annotation you tell ts the type
+// type annotation=> you tell ts the type
 let numApples: number = 5;
 let speed: string = "fast";
 let hasName: boolean = true;
@@ -34,7 +34,7 @@ const logNumber: (i: number) => void = (i: number) => {
   console.log(i);
 };
 
-// type inference ts guesses the type
+// type inference => ts guesses the type
 // declaratn   initialization
 const color = "black";
 // if decl and init are on same line, typescript can refer to  type form initialization
