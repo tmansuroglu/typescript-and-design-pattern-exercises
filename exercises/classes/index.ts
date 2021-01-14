@@ -25,7 +25,6 @@ class Car extends Vehicle2 {
 
 const car = new Car(4, "red");
 
-// Where to use classes
 /*
  * interface + classes = strong code reuse
  */
