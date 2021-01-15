@@ -3,6 +3,12 @@ import User from "./User";
 import Company from "./Company";
 // you can refer a class as type too
 
+// instructions to every other class on how they can be an argument to "addMarker"
+interface Mappable {
+  location: { latitude: number; longitude: number };
+  markerContent(): string;
+}
+
 class CustomMap {
   private googleMap: google.maps.Map;
 
@@ -14,10 +20,20 @@ class CustomMap {
     });
   }
 
-  addUserMarker(user: User): void {
-    new google.maps.Marker({
+  addMarker(mappable: Mappable): void {
+    const marker = new google.maps.Marker({
       map: this.googleMap,
-      position: { lat: user.location.latitude, lng: user.location.longitude },
+      position: {
+        lat: mappable.location.latitude,
+        lng: mappable.location.longitude,
+      },
+    });
+
+    marker.addListener("click", () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent(),
+      });
+      infoWindow.open(this.googleMap, marker);
     });
   }
 }

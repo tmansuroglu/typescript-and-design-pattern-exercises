@@ -4,7 +4,7 @@ class Company {
   name: string;
   catchPhrase: string;
   location: {
-    latidue: number;
+    latitude: number;
     longitude: number;
   };
 
@@ -12,9 +12,16 @@ class Company {
     this.name = faker.company.companyName();
     this.catchPhrase = faker.company.catchPhrase();
     this.location = {
-      latidue: parseFloat(faker.address.latitude()),
+      latitude: parseFloat(faker.address.latitude()),
       longitude: parseFloat(faker.address.longitude()),
     };
+  }
+
+  markerContent(): string {
+    return `
+    Company name: ${this.name}
+    Catchphrase: ${this.catchPhrase}
+    `;
   }
 }
 

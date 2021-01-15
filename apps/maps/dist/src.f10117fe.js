@@ -100438,6 +100438,10 @@ function () {
     };
   }
 
+  User.prototype.markerContent = function () {
+    return "User name is " + this.name;
+  };
+
   return User;
 }();
 
@@ -100464,10 +100468,14 @@ function () {
     this.name = faker_1.default.company.companyName();
     this.catchPhrase = faker_1.default.company.catchPhrase();
     this.location = {
-      latidue: parseFloat(faker_1.default.address.latitude()),
+      latitude: parseFloat(faker_1.default.address.latitude()),
       longitude: parseFloat(faker_1.default.address.longitude())
     };
   }
+
+  Company.prototype.markerContent = function () {
+    return "\n    Company name: " + this.name + "\n    Catchphrase: " + this.catchPhrase + "\n    ";
+  };
 
   return Company;
 }();
@@ -100478,7 +100486,7 @@ exports.default = Company;
 
 Object.defineProperty(exports, "__esModule", {
   value: true
-}); // you can refer a class as type too
+});
 
 var CustomMap =
 /** @class */
@@ -100494,13 +100502,21 @@ function () {
     });
   }
 
-  CustomMap.prototype.addUserMarker = function (user) {
-    new google.maps.Marker({
+  CustomMap.prototype.addMarker = function (mappable) {
+    var _this = this;
+
+    var marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
-        lat: user.location.latitude,
-        lng: user.location.longitude
+        lat: mappable.location.latitude,
+        lng: mappable.location.longitude
       }
+    });
+    marker.addListener("click", function () {
+      var infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent()
+      });
+      infoWindow.open(_this.googleMap, marker);
     });
   };
 
@@ -100531,7 +100547,8 @@ var CustomMap_1 = __importDefault(require("./CustomMap"));
 var customMap = new CustomMap_1.default("map");
 var user = new User_1.default();
 var company = new Company_1.default();
-customMap.addUserMarker(user);
+customMap.addMarker(user);
+customMap.addMarker(company);
 },{"./User":"src/User.ts","./Company":"src/Company.ts","./CustomMap":"src/CustomMap.ts"}],"../../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
