@@ -100474,11 +100474,11 @@ function () {
 
 exports.default = Company;
 },{"faker":"../../node_modules/faker/index.js"}],"src/CustomMap.ts":[function(require,module,exports) {
-"use strict"; // use custom map to limit callable methods of map. To prevent errors created by coworkers use private
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
-});
+}); // you can refer a class as type too
 
 var CustomMap =
 /** @class */
@@ -100493,6 +100493,16 @@ function () {
       }
     });
   }
+
+  CustomMap.prototype.addUserMarker = function (user) {
+    new google.maps.Marker({
+      map: this.googleMap,
+      position: {
+        lat: user.location.latitude,
+        lng: user.location.longitude
+      }
+    });
+  };
 
   return CustomMap;
 }();
@@ -100521,6 +100531,7 @@ var CustomMap_1 = __importDefault(require("./CustomMap"));
 var customMap = new CustomMap_1.default("map");
 var user = new User_1.default();
 var company = new Company_1.default();
+customMap.addUserMarker(user);
 },{"./User":"src/User.ts","./Company":"src/Company.ts","./CustomMap":"src/CustomMap.ts"}],"../../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
