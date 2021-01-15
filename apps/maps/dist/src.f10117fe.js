@@ -100473,7 +100473,32 @@ function () {
 }();
 
 exports.default = Company;
-},{"faker":"../../node_modules/faker/index.js"}],"src/index.ts":[function(require,module,exports) {
+},{"faker":"../../node_modules/faker/index.js"}],"src/CustomMap.ts":[function(require,module,exports) {
+"use strict"; // use custom map to limit callable methods of map. To prevent errors created by coworkers use private
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var CustomMap =
+/** @class */
+function () {
+  function CustomMap(divId) {
+    // ctrl+left click on google shows documentation
+    this.googleMap = new google.maps.Map(document.getElementById(divId), {
+      zoom: 1,
+      center: {
+        lat: 0,
+        lng: 0
+      }
+    });
+  }
+
+  return CustomMap;
+}();
+
+exports.default = CustomMap;
+},{}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -100491,10 +100516,12 @@ var User_1 = __importDefault(require("./User"));
 var Company_1 = __importDefault(require("./Company")); //although googlemaps is connected with script, it still needs type definitions. install @types/googlemaps
 
 
+var CustomMap_1 = __importDefault(require("./CustomMap"));
+
+var customMap = new CustomMap_1.default("map");
 var user = new User_1.default();
 var company = new Company_1.default();
-new google.maps.Map(document.getElementById("map"));
-},{"./User":"src/User.ts","./Company":"src/Company.ts"}],"../../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./User":"src/User.ts","./Company":"src/Company.ts","./CustomMap":"src/CustomMap.ts"}],"../../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
